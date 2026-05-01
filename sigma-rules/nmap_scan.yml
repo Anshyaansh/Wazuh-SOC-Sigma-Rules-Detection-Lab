@@ -1,0 +1,23 @@
+title: Nmap Port Scan Detected 
+id: a1b2c3d4-0003-0003-0003-000000000003
+status: stable
+description: Detects nmap reconnaissance activity via Windows firewall logs
+author: Anmol
+date: 2026/04/30
+tags:
+    - attack.reconnaissance
+    - attack.t1046
+logsource:
+    product: windows
+    service: security
+detection:
+    selection:
+        EventID: 5156
+        DestinationPort:
+            - 22
+            - 80
+            - 443
+            - 445
+            - 3389
+    condition: selection | count(DestinationPort) by SourceAddress > 10
+level: medium

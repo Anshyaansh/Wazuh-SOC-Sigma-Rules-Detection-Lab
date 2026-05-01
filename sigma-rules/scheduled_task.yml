@@ -1,0 +1,21 @@
+title: Suspicious Scheduled Task Creation via schtasks
+id: b5a1c2d3-0008-0008-0008-000000000008
+status: stable
+description: Detects scheduled task creation commonly used for persistence or execution
+author: YourName
+date: 2026/05/01
+tags:
+    - attack.persistence
+    - attack.execution
+    - attack.t1053.005
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        Image|endswith: '\schtasks.exe'
+        CommandLine|contains: '/create'
+    condition: selection
+falsepositives:
+    - Legitimate software installers creating scheduled tasks
+level: high
